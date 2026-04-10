@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aguará – Speed Blend | Mezcladores para Drones y Pulverizadoras</title>
+  <meta name="description" content="Línea Speed Blend: mezcladores de caldo para drones agrícolas y pulverizadoras. Desde 170 hasta 1200 litros. Fabricación argentina. Consultá precios y financiación." />
+  <!--
+    TIPOGRAFÍA del catálogo Aguará:
+    · Oswald ExtraBold/Bold — títulos display y nombres de producto (idéntico al estilo del catálogo)
+    · Barlow — cuerpo de texto, descripciones
+    Ambas son Google Fonts. Oswald Bold Italic replica exactamente
+    el estilo de "SPEED BLEND 170 L (simple)" del catálogo.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&family=Oswald:wght@600;700&display=swap" rel="stylesheet" />
+
+  <!-- Filtro SVG fuera del flujo del documento — elimina fondo blanco de logo JFIF -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="position:fixed;top:-9999px;left:-9999px;width:1px;height:1px" aria-hidden="true">
+    <defs>
+      <filter id="rm-white" color-interpolation-filters="sRGB" x="0%" y="0%" width="100%" height="100%">
+        <!-- Fondo blanco: canal B como máscara inversa (blanco B=1→A=0, naranja B≈0.1→A≈1) -->
+        <feColorMatrix type="matrix"
+          values="1 0 0 0 0
+                  0 1 0 0 0
+                  0 0 1 0 0
+                  0 0 -2.5 0 2.5"/>
+        <!-- Gamma endurece el borde → corta el antialiasing JPEG limpiamente -->
+        <feComponentTransfer>
+          <feFuncA type="gamma" amplitude="1" exponent="0.4" offset="0"/>
+        </feComponentTransfer>
+      </filter>
+    </defs>
+  </svg>
+
+  <style>
+    /* ═══════════════════════════════════════════════════
+       PALETA: SOLO NEGRO · NARANJA · BLANCO
+       OKLCH — perceptually uniform color space
+    ═══════════════════════════════════════════════════ */
+    :root {
+      --negro:          oklch(8%  0    0);
+      --negro-2:        oklch(13% 0    0);
+      --negro-3:        oklch(18% 0    0);
+      --naranja:        oklch(58% 0.19 42);
+      --naranja-hover:  oklch(63% 0.19 42);
+      --naranja-suave:  oklch(96% 0.03 42);
+      --blanco:         oklch(99% 0    0);
+      --gris-linea:     oklch(91% 0    0);
+      --gris-texto:     oklch(42% 0    0);
+      --gris-suave:     oklch(95% 0    0);
+
+      /* Spacing 4pt */
+      --s1:4px; --s2:8px; --s3:12px; --s4:16px;
+      --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+      --s9:96px; --s10:128px;
+
+      /* Easing — from motion-design skill */
+      --expo-out:  cubic-bezier(0.16, 1, 0.3, 1);
+      --quart-out: cubic-bezier(0.25, 1, 0.5, 1);
+      --inout:     cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* scroll-behavior lo manejamos via JS para tener control de duración y easing */
+    html { scroll-behavior: auto; }
+
+    body {
+      font-family: 'Hanken Grotesk', sans-serif;
+      color: var(--negro);
+      background: var(--blanco);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       ANIMACIONES DE SCROLL
+       Solo transform + opacity — sin layout recalc
+    ═══════════════════════════════════════════════════ */
+    [data-anim] {
+      opacity: 0;
+      transform: translateY(28px);
+      will-change: opacity, transform;
+    }
+    .producto-card[data-anim] { transform: translateY(120px); }
+    .faq-item[data-anim] { transform: translateY(80px); }
+    [data-anim="left"]  { transform: translateX(-36px); }
+    [data-anim="right"] { transform: translateX(36px); }
+    [data-anim="scale"] { transform: scale(0.92); }
+    [data-anim="fade"]  { transform: none; }
+
+    [data-anim].anim-in {
+      opacity: 1;
+      transform: none;
+      transition: opacity 550ms var(--expo-out), transform 550ms var(--expo-out);
+    }
+    .producto-card[data-anim].anim-in,
+    .faq-item[data-anim].anim-in {
+      transition: opacity 3500ms cubic-bezier(0.0, 0.0, 0.2, 1), transform 3500ms cubic-bezier(0.0, 0.0, 0.2, 1);
+    }
+    [data-delay="1"].anim-in { transition-delay: 70ms; }
+    [data-delay="2"].anim-in { transition-delay: 130ms; }
+    [data-delay="3"].anim-in { transition-delay: 190ms; }
+    [data-delay="4"].anim-in { transition-delay: 250ms; }
+    [data-delay="5"].anim-in { transition-delay: 310ms; }
+    [data-delay="6"].anim-in { transition-delay: 370ms; }
+
+    @media (prefers-reduced-motion: reduce) {
+      [data-anim] { transform: none; }
+      [data-anim].anim-in { transition-duration: 150ms !important; transition-delay: 0ms !important; }
+    }
+
+    /* ═══════════════════════════════════════════════════
+       STICKY BAR
+    ═══════════════════════════════════════════════════ */
+    .sticky-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: var(--negro);
+      height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--s9);
+      box-shadow: 0 1px 0 oklch(100% 0 0 / 0.08);
+      transform: translateY(-100%);
+      transition: transform 350ms var(--expo-out), background 280ms var(--expo-out), box-shadow 280ms var(--expo-out);
+    }
+    .sticky-bar.visible { transform: translateY(0); }
+
+    /* Header naranja — secciones blancas (Productos, FAQ) */
+    .sticky-bar.header-orange { background: var(--naranja); box-shadow: 0 1px 0 oklch(0% 0 0 / 0.12); }
+    .sticky-bar.header-orange .sticky-logo { color: var(--negro); }
+    .sticky-bar.header-orange .sticky-links a:not(.sticky-cta) { color: var(--blanco); }
+    .sticky-bar.header-orange .sticky-links a:not(.sticky-cta):hover { color: var(--blanco); }
+    .sticky-bar.header-orange .sticky-cta { background: var(--negro) !important; color: var(--blanco) !important; }
+    .sticky-bar.header-orange .sticky-cta:hover { background: oklch(18% 0 0) !important; }
+    .sticky-bar.header-orange .sticky-links a:not(.sticky-cta)::after { background: var(--negro); }
+
+    .sticky-logo {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--blanco);
+      letter-spacing: 0.18em;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: var(--s3);
+      transition: color 280ms var(--expo-out);
+    }
+    .sticky-logo img { height: 216px; object-fit: contain; mix-blend-mode: screen; }
+
+    .sticky-links { display: flex; gap: var(--s2); list-style: none; align-items: center; }
+    .sticky-links a {
+      color: oklch(72% 0 0);
+      text-decoration: none;
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 0.819rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: var(--s2) var(--s3);
+      border-radius: 2px;
+      position: relative;
+      transition: color 200ms var(--quart-out), transform 200ms var(--quart-out);
+    }
+    /* Underline animado — se expande de izquierda a derecha al hover */
+    .sticky-links a:not(.sticky-cta)::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: var(--s3); right: var(--s3);
+      height: 1.5px;
+      background: var(--naranja);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 220ms var(--expo-out);
+    }
+    .sticky-links a:not(.sticky-cta):hover { color: var(--blanco); transform: translateY(-1px); }
+    .sticky-links a:not(.sticky-cta):hover::after { transform: scaleX(1); }
+    @keyframes pulse-cta {
+      0%   { box-shadow: 0 0 0 0 rgba(229,90,26,0.55); }
+      70%  { box-shadow: 0 0 0 10px rgba(229,90,26,0); }
+      100% { box-shadow: 0 0 0 0 rgba(229,90,26,0); }
+    }
+    .sticky-cta {
+      background: var(--naranja) !important;
+      color: var(--blanco) !important;
+      padding: var(--s2) var(--s5) !important;
+      border-radius: 6px !important;
+      animation: pulse-cta 2s ease-out infinite;
+      transition: background 180ms var(--quart-out), transform 200ms var(--quart-out) !important;
+    }
+    .sticky-cta:hover {
+      background: var(--naranja-hover) !important;
+      transform: translateY(-1px);
+      animation-play-state: paused;
+    }
+    @keyframes pulse-cta-dark {
+      0%   { box-shadow: 0 0 0 0 rgba(0,0,0,0.5); }
+      70%  { box-shadow: 0 0 0 10px rgba(0,0,0,0); }
+      100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); }
+    }
+    /* Pulse negro cuando header es naranja */
+    .sticky-bar.header-orange .sticky-cta {
+      border-radius: 6px !important;
+      animation: pulse-cta-dark 2s ease-out infinite !important;
+    }
+    .sticky-bar.header-orange .sticky-cta:hover {
+      background: oklch(18% 0 0) !important;
+      animation-play-state: paused !important;
+    }
+
+    .sticky-ham {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    .sticky-ham span { display: block; width: 22px; height: 2px; background: var(--blanco); border-radius: 1px; }
+
+    /* ═══════════════════════════════════════════════════
+       HERO — campo, opacidad mínima
+    ═══════════════════════════════════════════════════ */
+    #hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--s8) var(--s9);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* Campo — oscuro/cinematográfico */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1800&q=85') center/cover no-repeat;
+      opacity: 0.45;
+      z-index: 0;
+    }
+
+    /* Overlay oscuro fuerte */
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg,
+          rgba(0,0,0,0.67) 0%,
+          rgba(0,0,0,0.57) 50%,
+          rgba(0,0,0,0.77) 100%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: -32vh;
+    }
+
+    .hero-logo {
+      width: min(480px, 85vw);
+      height: auto;
+      object-fit: contain;
+      /* PNG con transparencia — glow sutil de detalle */
+      filter: drop-shadow(0 0 10px rgba(229,90,26,0.28));
+      margin-bottom: -5rem;
+    }
+
+    /* "AGUARÁ" — igual que la imagen de referencia */
+    .hero-brand-name {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-weight: 400;
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      color: var(--naranja);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: var(--s5);
+      text-shadow:
+        1px  0px 0 rgba(0,0,0,0.9),
+       -1px  0px 0 rgba(0,0,0,0.9),
+        0px  1px 0 rgba(0,0,0,0.9),
+        0px -1px 0 rgba(0,0,0,0.9),
+        0 4px 18px rgba(0,0,0,0.35);
+    }
+
+    .hero-cta {
+      display: inline-block;
+      margin-top: var(--s5);
+      padding: var(--s3) var(--s7);
+      background: var(--naranja);
+      color: var(--blanco);
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.8rem, 1.4vw, 1rem);
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      text-transform: uppercase;
+      border-radius: 6px;
+      box-shadow: 0 0 10px rgba(229,90,26,0.35), 0 0 24px rgba(229,90,26,0.15);
+      transition: background 180ms var(--quart-out), transform 180ms var(--quart-out), box-shadow 180ms var(--quart-out);
+    }
+    .hero-cta:hover {
+      background: var(--naranja-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 0 14px rgba(229,90,26,0.5), 0 0 32px rgba(229,90,26,0.2);
+    }
+
+    .hero-tagline {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: clamp(0.84rem, 1.96vw, 1.4rem);
+      color: var(--blanco);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      /* Stroke negro simulado con text-shadow en 4 direcciones + sombra difusa */
+      text-shadow:
+        -1px -1px 0 oklch(0% 0 0 / 0.9),
+         1px -1px 0 oklch(0% 0 0 / 0.9),
+        -1px  1px 0 oklch(0% 0 0 / 0.9),
+         1px  1px 0 oklch(0% 0 0 / 0.9),
+        0 0 20px oklch(0% 0 0 / 0.8),
+        0 0 40px oklch(0% 0 0 / 0.5);
+    }
+
+    /* ═══════════════════════════════════════════════════
+       NAV DIVISOR — negro, botones naranjas
+    ═══════════════════════════════════════════════════ */
+    .nav-divider {
+      background: var(--negro);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: var(--s2);
+      padding: var(--s4) var(--s9);
+    }
+    .nav-divider a {
+      color: var(--blanco);
+      text-decoration: none;
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: var(--s2) var(--s4);
+      border-radius: 2px;
+      background: var(--naranja);
+      transition: background 130ms var(--quart-out);
+    }
+    .nav-divider a:hover { background: var(--naranja-hover); }
+
+    /* ═══════════════════════════════════════════════════
+       TIPOGRAFÍA COMPARTIDA — Oswald para títulos
+    ═══════════════════════════════════════════════════ */
+    .section-eyebrow {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--naranja);
+      margin-bottom: var(--s2);
+    }
+    .section-title {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      color: var(--negro);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      /* Sombra sutil en todos los títulos */
+      text-shadow: 0 2px 8px oklch(0% 0 0 / 0.12);
+    }
+    .section-sub {
+      color: var(--gris-texto);
+      font-size: 1rem;
+      margin-top: var(--s3);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       PRODUCTOS — fondo blanco
+    ═══════════════════════════════════════════════════ */
+    #productos {
+      background: var(--blanco);
+      padding: var(--s9) var(--s9);
+      border-top: 4px solid var(--naranja);
+    }
+    .productos-header { margin-bottom: var(--s8); }
+    .productos-header .section-title {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-style: italic;
+    }
+
+    .productos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--s5);
+    }
+
+    .producto-card {
+      background: var(--blanco);
+      border: 1px solid var(--gris-linea);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      min-height: 680px;
+      flex-direction: column;
+      transition: transform 280ms var(--quart-out), box-shadow 280ms var(--quart-out);
+      box-shadow: 0 2px 8px oklch(0% 0 0 / 0.06);
+    }
+    .producto-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px oklch(0% 0 0 / 0.12);
+    }
+
+    .card-photo {
+      width: 100%;
+      flex: 0 0 60%;
+      background: var(--gris-suave);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: var(--s4);
+      transition: transform 380ms var(--quart-out);
+    }
+    .producto-card:hover .card-photo img { transform: scale(1.04); }
+    .card-photo .photo-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gris-suave);
+    }
+    .vol-big {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 3.5rem;
+      color: var(--naranja);
+      opacity: 0.18;
+      letter-spacing: -0.02em;
+    }
+
+    /* Stripe del modelo — 29LT Bukra exacto al catálogo */
+    .card-stripe {
+      background: var(--naranja);
+      padding: var(--s3) var(--s5);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card-model {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--blanco);
+      letter-spacing: 0.03em;
+    }
+    .card-variant {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: oklch(100% 0 0 / 0.72);
+      background: oklch(0% 0 0 / 0.16);
+      padding: 2px 7px;
+      border-radius: 2px;
+    }
+
+    .card-body { padding: var(--s4); flex: 0 0 40%; display: flex; flex-direction: column; }
+    .card-title {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--negro);
+      margin-bottom: var(--s4);
+      letter-spacing: 0.02em;
+    }
+    .card-title .litros {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.72rem;
+      color: var(--naranja);
+      font-weight: 700;
+      font-style: italic;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .card-specs { list-style: none; flex: 1; margin-bottom: var(--s5); }
+    .card-specs li {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 0.82rem;
+      color: var(--gris-texto);
+      padding: 4px 0;
+      border-bottom: 1px solid var(--gris-linea);
+      display: flex;
+      align-items: center;
+      gap: var(--s3);
+    }
+    .card-specs li:last-child { border-bottom: none; }
+    .card-specs li.spec-empty::before { display: none; }
+    .card-specs li.spec-empty { color: transparent; }
+    .card-specs li::before {
+      content: '';
+      width: 5px; height: 5px;
+      background: var(--naranja);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .card-cta {
+      display: block;
+      text-align: center;
+      background: var(--negro);
+      color: var(--blanco);
+      padding: var(--s3) var(--s5);
+      border-radius: 2px;
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: background 130ms var(--quart-out);
+    }
+    .card-cta:hover { background: var(--naranja); }
+
+    /* ═══════════════════════════════════════════════════
+       TESTIMONIOS — negro
+    ═══════════════════════════════════════════════════ */
+    #testimonios {
+      background: var(--negro);
+      padding: var(--s9) var(--s9);
+      overflow: hidden;
+      border-top: 1px solid transparent;
+      border-image: linear-gradient(to right, transparent, rgba(229,90,26,0.45) 25%, rgba(229,90,26,0.45) 75%, transparent) 1;
+    }
+    #testimonios .section-title   { color: var(--naranja); font-size: clamp(2.5rem, 5vw, 4rem); text-shadow: 0 2px 16px oklch(58% 0.19 42 / 0.35); }
+    .testimonios-header { margin-bottom: var(--s7); }
+
+    .carousel-track-outer { overflow: hidden; border-radius: 4px; }
+    .carousel-track {
+      display: flex;
+      transition: transform 480ms var(--expo-out);
+    }
+
+    .testimonio-slide {
+      min-width: 100%;
+      padding: var(--s8) var(--s9);
+      background: var(--negro-2);
+      border: 1px solid oklch(100% 0 0 / 0.07);
+      border-top: 3px solid var(--naranja);
+      border-radius: 4px;
+      display: flex;
+      gap: var(--s6);
+      align-items: flex-start;
+    }
+    .testimonio-avatar {
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      background: var(--naranja);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--blanco);
+      flex-shrink: 0;
+      letter-spacing: 0.05em;
+    }
+    .testimonio-content { flex: 1; }
+    .testimonio-stars {
+      color: var(--naranja);
+      font-size: 0.95rem;
+      letter-spacing: 3px;
+      margin-bottom: var(--s3);
+    }
+    .testimonio-texto {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 1rem;
+      color: oklch(88% 0 0);
+      font-style: italic;
+      line-height: 1.75;
+      margin-bottom: var(--s5);
+      max-width: 72ch;
+    }
+    .testimonio-autor {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--naranja);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .testimonio-rol {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: oklch(52% 0 0);
+      margin-top: 2px;
+    }
+
+    .carousel-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--s5);
+      margin-top: var(--s5);
+    }
+    .carousel-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--negro-3);
+      border: 1px solid oklch(100% 0 0 / 0.12);
+      color: oklch(70% 0 0);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: background 130ms var(--quart-out), color 130ms var(--quart-out), border-color 130ms var(--quart-out);
+    }
+    .carousel-btn:hover { background: var(--naranja); color: var(--blanco); border-color: var(--naranja); }
+
+    .carousel-dots { display: flex; gap: var(--s2); align-items: center; }
+    .carousel-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: oklch(30% 0 0);
+      cursor: pointer;
+      border: none;
+      transition: background 200ms var(--quart-out), transform 200ms var(--quart-out);
+    }
+    .carousel-dot.active { background: var(--naranja); transform: scale(1.4); }
+
+    /* ═══════════════════════════════════════════════════
+       POR QUÉ — naranja
+    ═══════════════════════════════════════════════════ */
+    #por-que {
+      /* Un tono más claro que el naranja puro — menos saturado */
+      background: oklch(68% 0.17 42);
+      padding: var(--s9) var(--s9);
+      border-top: 1px solid transparent;
+      border-image: linear-gradient(to right, transparent, rgba(255,255,255,0.35) 25%, rgba(255,255,255,0.35) 75%, transparent) 1;
+    }
+    #por-que .section-eyebrow {
+      color: oklch(100% 0 0 / 0.7);
+      letter-spacing: 0.28em;
+    }
+    #por-que .section-title { color: var(--blanco); text-shadow: 0 2px 12px oklch(0% 0 0 / 0.25); }
+    #por-que .section-header { margin-bottom: var(--s7); }
+
+    .beneficios-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--s4);
+    }
+    .beneficio {
+      background: oklch(0% 0 0 / 0.14);
+      /* Borde blanco claramente visible en los 4 lados */
+      border: 1.5px solid oklch(100% 0 0 / 0.55);
+      border-top: 3px solid var(--blanco);
+      border-radius: 4px;
+      padding: var(--s6) var(--s5);
+      transition: background 200ms var(--quart-out), border-color 200ms var(--quart-out);
+    }
+    .beneficio:hover {
+      background: oklch(0% 0 0 / 0.22);
+      border-color: oklch(100% 0 0 / 0.85);
+    }
+    .beneficio-icon { font-size: 1.8rem; margin-bottom: var(--s4); display: block; }
+    .beneficio h3 {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--blanco);
+      margin-bottom: var(--s3);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .beneficio p {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 0.88rem;
+      color: oklch(100% 0 0 / 0.75);
+      line-height: 1.65;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       FAQ — blanco
+    ═══════════════════════════════════════════════════ */
+    #faq {
+      background: var(--blanco);
+      border-top: 1px solid transparent;
+      border-image: linear-gradient(to right, transparent, rgba(229,90,26,0.2) 25%, rgba(229,90,26,0.2) 75%, transparent) 1;
+      padding: var(--s9) var(--s9);
+    }
+    .faq-header { margin-bottom: var(--s7); }
+    .faq-list {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--s3);
+    }
+    .faq-item {
+      border: 1px solid var(--gris-linea);
+      border-left: 4px solid var(--naranja);
+      border-radius: 0 4px 4px 0;
+      overflow: hidden;
+    }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: var(--s5) var(--s6);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      text-align: left;
+      gap: var(--s5);
+      transition: background 130ms var(--quart-out);
+    }
+    .faq-question:hover { background: var(--naranja-suave); }
+    .faq-question span:first-child {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--negro);
+      letter-spacing: 0.02em;
+    }
+    .faq-icon {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--naranja);
+      color: var(--blanco);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 700; flex-shrink: 0; line-height: 1;
+      transition: transform 300ms var(--inout);
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    /* grid-template-rows trick — no animamos height */
+    .faq-answer {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 340ms var(--quart-out);
+    }
+    .faq-item.open .faq-answer { grid-template-rows: 1fr; }
+    .faq-answer-inner { overflow: hidden; padding: 0 var(--s6); }
+    .faq-item.open .faq-answer-inner { padding-bottom: var(--s5); }
+    .faq-answer-inner p {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 0.93rem;
+      color: var(--gris-texto);
+      line-height: 1.75;
+      max-width: 68ch;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       CONTACTO — negro
+    ═══════════════════════════════════════════════════ */
+    #contacto {
+      background: var(--naranja);
+      padding: var(--s10) var(--s9);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #contacto::before {
+      content: '';
+      position: absolute;
+      top: -70px; left: -5%; right: -5%;
+      height: 140px;
+      background: var(--blanco);
+      border-radius: 0 0 50% 50%;
+    }
+    .contacto-inner { position: relative; max-width: 600px; margin: 0 auto; }
+
+    .contacto-eyebrow {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: oklch(55% 0 0);
+      margin-bottom: var(--s3);
+    }
+    /* "CONSULTE" — estilo idéntico al catálogo */
+    .contacto-title {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: clamp(3.5rem, 9vw, 7rem);
+      font-weight: 700;
+      font-style: italic;
+      color: var(--blanco);
+      line-height: 1;
+      margin-bottom: var(--s2);
+      letter-spacing: -0.02em;
+    }
+    .contacto-sub-title {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: clamp(1rem, 2.5vw, 1.6rem);
+      font-style: italic;
+      font-weight: 500;
+      color: oklch(95% 0 0);
+      margin-bottom: var(--s7);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .contacto-btns {
+      display: flex;
+      gap: var(--s4);
+      justify-content: center;
+    }
+    .btn-icono {
+      width: 66px; height: 66px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: transform 200ms var(--quart-out), box-shadow 200ms var(--quart-out);
+      box-shadow: 0 4px 20px oklch(0% 0 0 / 0.3);
+    }
+    .btn-icono:hover { transform: translateY(-4px) scale(1.07); box-shadow: 0 10px 32px oklch(0% 0 0 / 0.4); }
+    .btn-wa { background: #25d366; }
+    .btn-ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+    .btn-fb { background: #1877f2; }
+
+    .contacto-logo { margin-top: var(--s7); }
+    .contacto-logo img { height: 240px; mix-blend-mode: screen; filter: brightness(1.8); }
+
+    /* ═══════════════════════════════════════════════════
+       DEGRADADOS DE TRANSICIÓN entre secciones
+    ═══════════════════════════════════════════════════ */
+    .grad {
+      display: block;
+      height: 72px;
+      pointer-events: none;
+    }
+    .grad-white-black  { background: linear-gradient(to bottom, oklch(99% 0 0),     oklch(8% 0 0)); }
+    .grad-black-orange { background: linear-gradient(to bottom, oklch(8% 0 0),      oklch(68% 0.17 42)); }
+    .grad-orange-white { background: linear-gradient(to bottom, oklch(68% 0.17 42), oklch(99% 0 0)); }
+    .grad-white-black2 { background: linear-gradient(to bottom, oklch(99% 0 0),     oklch(8% 0 0)); }
+    .grad-black-dark   { background: linear-gradient(to bottom, oklch(8% 0 0),      oklch(5% 0 0)); }
+
+    /* ═══════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════ */
+    footer {
+      background: oklch(5% 0 0);
+      border-top: 1px solid transparent;
+      border-image: linear-gradient(to right, transparent, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.1) 75%, transparent) 1;
+      color: oklch(38% 0 0);
+      text-align: center;
+      padding: var(--s5) var(--s9);
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 0.8rem;
+    }
+    footer strong { color: var(--naranja); }
+
+    /* ═══════════════════════════════════════════════════
+       BOTONES FLOTANTES — columna abajo a la derecha
+    ═══════════════════════════════════════════════════ */
+    .social-float {
+      position: fixed;
+      bottom: var(--s6);
+      right: var(--s6);
+      transition: opacity 400ms var(--expo-out), transform 400ms var(--expo-out);
+      z-index: 999;
+      display: flex;
+      flex-direction: row;
+      gap: var(--s3);
+      align-items: center;
+    }
+
+    .social-float a {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      transition: transform 180ms var(--quart-out), box-shadow 180ms var(--quart-out);
+      box-shadow: 0 3px 14px oklch(0% 0 0 / 0.25);
+    }
+
+    .social-float a:hover { transform: scale(1.12); box-shadow: 0 6px 22px oklch(0% 0 0 / 0.35); }
+
+    /* Los 3 con la misma animación de pulso, colores distintos */
+    .sf-wa  { background: #25d366; animation: pulse-wa 2.5s ease-out infinite; }
+    .sf-ig  { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); animation: pulse-ig 2.5s ease-out infinite 0.25s; }
+    .sf-fb  { background: #1877f2; animation: pulse-fb 2.5s ease-out infinite 0.5s; }
+
+    .social-float a:hover { animation-play-state: paused; }
+    .social-float.hidden { opacity: 0; transform: translateY(20px); pointer-events: none; }
+
+    @keyframes pulse-wa {
+      0%   { box-shadow: 0 0 0 0    rgba(37,211,102,0.55); }
+      70%  { box-shadow: 0 0 0 13px rgba(37,211,102,0); }
+      100% { box-shadow: 0 0 0 0    rgba(37,211,102,0); }
+    }
+    @keyframes pulse-ig {
+      0%   { box-shadow: 0 0 0 0    rgba(220,39,67,0.55); }
+      70%  { box-shadow: 0 0 0 13px rgba(220,39,67,0); }
+      100% { box-shadow: 0 0 0 0    rgba(220,39,67,0); }
+    }
+    @keyframes pulse-fb {
+      0%   { box-shadow: 0 0 0 0    rgba(24,119,242,0.55); }
+      70%  { box-shadow: 0 0 0 13px rgba(24,119,242,0); }
+      100% { box-shadow: 0 0 0 0    rgba(24,119,242,0); }
+    }
+
+    @media (max-width: 768px) {
+      .social-float { bottom: var(--s4); right: var(--s4); }
+      .social-float a { width: 46px; height: 46px; }
+    }
+
+    /* ═══════════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════════ */
+    @media (max-width: 1100px) {
+      .productos-grid  { grid-template-columns: repeat(2, 1fr); }
+      .beneficios-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      :root { --s9: 20px; --s10: 72px; }
+      .sticky-links { display: none; }
+      .sticky-links.open {
+        display: flex;
+        position: absolute;
+        top: 54px; left: 0; right: 0;
+        flex-direction: column;
+        background: var(--negro);
+        padding: var(--s3) 0 var(--s5);
+        gap: 0;
+      }
+      .sticky-links.open li a { padding: var(--s4) var(--s6); display: block; }
+      .sticky-ham { display: flex; }
+      .hero-logo { height: 160px; }
+      .productos-grid  { grid-template-columns: 1fr; }
+      .beneficios-grid { grid-template-columns: 1fr 1fr; }
+      .testimonio-slide { padding: var(--s6); flex-direction: column; gap: var(--s4); }
+      .section-sub { white-space: normal; }
+      #contacto::before { display: none; }
+    }
+    @media (max-width: 520px) {
+      .beneficios-grid { grid-template-columns: 1fr; }
+      .nav-divider a   { font-size: 0.72rem; padding: var(--s2) var(--s3); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- STICKY BAR -->
+<div class="sticky-bar" id="stickyBar">
+  <a href="#hero" class="sticky-logo">
+    <img src="AGUARA BLANCO DERECHA.png" alt="Aguará" onerror="this.style.display='none'">
+  </a>
+  <ul class="sticky-links" id="stickyLinks">
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#testimonios">Testimonios</a></li>
+    <li><a href="#por-que">Nosotros</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="https://wa.me/5493416426353?text=Hola!%20Quiero%20consultar%20precio%20y%20financiaci%C3%B3n%20del%20Speed%20Blend" class="sticky-cta" target="_blank" rel="noopener">Consultar precio</a></li>
+  </ul>
+  <button class="sticky-ham" id="stickyHam" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<!-- Filtro SVG para eliminar fondo blanco del logo JFIF.
+     Canal B: naranja≈0.1 (opaco), blanco=1.0 (transparente).
+     Los píxeles de antialiasing JPEG quedan semi-transparentes → bordes suaves. -->
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <!-- Icono del zorro — fondo blanco eliminado por filtro R−B -->
+    <img class="hero-logo" src="LOGO AGUARA SIN FONDO.png" alt="Aguará"
+         onerror="this.style.display='none'">
+    <p class="hero-tagline">La mezcla perfecta para tus aplicaciones</p>
+    <a href="https://wa.me/5493416426353?text=Hola!%20Quiero%20consultar%20precio%20y%20financiaci%C3%B3n%20del%20Speed%20Blend" class="hero-cta" target="_blank" rel="noopener">Cotiza tu mixer</a>
+  </div>
+</section>
+
+<!-- NAV DIVISOR -->
+<nav class="nav-divider" aria-label="Secciones">
+  <a href="#productos">Productos</a>
+  <a href="#testimonios">Testimonios</a>
+  <a href="#por-que">Nosotros</a>
+  <a href="#faq">FAQ</a>
+  <a href="#contacto">Consultar precio</a>
+</nav>
+
+<!-- PRODUCTOS -->
+<section id="productos">
+  <div class="productos-header">
+    <p class="section-eyebrow" data-anim="left">Catálogo completo</p>
+    <h2 class="section-title" data-anim data-delay="1">Línea <em style="color:var(--naranja);font-style:italic;">Speed Blend</em></h2>
+    <p class="section-sub" data-anim data-delay="2">Modelos "simple" (bomba 220V) y "duplo" (rotor eléctrico + bomba). Consultá por precios y disponibilidad.</p>
+  </div>
+
+  <div class="productos-grid">
+    <div class="producto-card" data-anim data-delay="1">
+      <div class="card-photo">
+        <img src="SPEED BLEND 170L (Simple).png" alt="Speed Blend 170L Simple">
+        <div class="photo-placeholder"><span class="vol-big">170L</span></div>
+      </div>
+      <div class="card-stripe">
+        <span class="card-model">SPEED BLEND 170 L</span>
+        <span class="card-variant">Simple</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Mezclador 170 Litros</div>
+        <ul class="card-specs">
+          <li>Bomba eléctrica 220V</li>
+          <li>Compacto de fácil manejo</li>
+          <li>Triple agitación hidráulica</li>
+          <li>Fondo cónico</li>
+          <li>Manguera de 10m</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="producto-card" data-anim data-delay="2">
+      <div class="card-photo">
+        <img src="SPEED BLEND 300L (Simple).png" alt="Speed Blend 300L Simple">
+        <div class="photo-placeholder"><span class="vol-big">300L</span></div>
+      </div>
+      <div class="card-stripe">
+        <span class="card-model">SPEED BLEND 300 L</span>
+        <span class="card-variant">Simple</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Mezclador 300 Litros</div>
+        <ul class="card-specs">
+          <li>Bomba eléctrica 220V</li>
+          <li>Triple agitación hidráulica</li>
+          <li>Fondo cónico</li>
+          <li>Manguera de 10m</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="producto-card" data-anim data-delay="3">
+      <div class="card-photo">
+        <img src="SPEED BLEND 300L (Duplo).png" alt="Speed Blend 300L Duplo">
+        <div class="photo-placeholder"><span class="vol-big">300L</span></div>
+      </div>
+      <div class="card-stripe">
+        <span class="card-model">SPEED BLEND 300 L</span>
+        <span class="card-variant">Duplo</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Mezclador 300 Litros <span class="litros">Duplo</span></div>
+        <ul class="card-specs">
+          <li>Bomba eléctrica 220V</li>
+          <li>Rotor eléctrico</li>
+          <li>Triple agitación hidráulica</li>
+          <li>Mezcla más uniforme</li>
+          <li>Fondo cónico</li>
+          <li>Manguera de 10m</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="producto-card" data-anim data-delay="4">
+      <div class="card-photo">
+        <img src="SPEED BLEND 600L (Con Motobomba).png" alt="Speed Blend 600L Con Motobomba">
+        <div class="photo-placeholder"><span class="vol-big">600L</span></div>
+      </div>
+      <div class="card-stripe">
+        <span class="card-model">SPEED BLEND 600 L</span>
+        <span class="card-variant">Simple</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Mezclador 600 Litros</div>
+        <ul class="card-specs">
+          <li>Motobomba de alta potencia</li>
+          <li>Estructura de acero reforzado</li>
+          <li>Triple agitación hidráulica</li>
+          <li>Fondo cónico</li>
+          <li>Manguera de 10m</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="producto-card" data-anim data-delay="5">
+      <div class="card-photo">
+        <img src="SPEED BLEND 600L (Duplo).png" alt="Speed Blend 600L Duplo">
+        <div class="photo-placeholder"><span class="vol-big">600L</span></div>
+      </div>
+      <div class="card-stripe">
+        <span class="card-model">SPEED BLEND 600 L</span>
+        <span class="card-variant">Duplo</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Mezclador 600 Litros <span class="litros">Duplo</span></div>
+        <ul class="card-specs">
+          <li>Bomba eléctrica 220V</li>
+          <li>Rotor eléctrico</li>
+          <li>Triple agitación hidráulica</li>
+          <li>Estructura de acero reforzado</li>
+          <li>Fondo cónico</li>
+          <li>Manguera de 10m</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="producto-card" data-anim data-delay="6">
+      <div class="card-photo">
+        <img src="SPEED BLEND 1200L (Con Motobomba).png" alt="Speed Blend 1200L Con Motobomba">
+        <div class="photo-placeholder"><span class="vol-big">1200L</span></div>
+      </div>
+      <div class="card-stripe">
+        <span class="card-model">SPEED BLEND 1200 L</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Mezclador 1200 Litros</div>
+        <ul class="card-specs">
+          <li>Motobomba de alta potencia</li>
+          <li>Máxima capacidad disponible</li>
+          <li>Triple agitación hidráulica</li>
+          <li>Fondo cónico</li>
+          <li>Manguera de 10m</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section id="testimonios">
+  <div class="testimonios-header">
+    <h2 class="section-title" data-anim>Testimonios</h2>
+  </div>
+  <div class="carousel-wrap" data-anim data-delay="2">
+    <div class="carousel-track-outer">
+      <div class="carousel-track" id="carouselTrack">
+        <div class="testimonio-slide">
+          <div class="testimonio-avatar">MR</div>
+          <div class="testimonio-content">
+            <div class="testimonio-stars">★★★★★</div>
+            <p class="testimonio-texto">"Compramos el Speed Blend 600L duplo para nuestra empresa de servicios aéreos. La mezcla es homogénea, el equipo es sólido y el soporte de Aguará fue excelente. Lo recomiendo sin dudarlo."</p>
+            <div class="testimonio-autor">Marcelo Rodríguez</div>
+            <div class="testimonio-rol">Servicio de aplicación aérea — Córdoba</div>
+          </div>
+        </div>
+        <div class="testimonio-slide">
+          <div class="testimonio-avatar">LF</div>
+          <div class="testimonio-content">
+            <div class="testimonio-stars">★★★★★</div>
+            <p class="testimonio-texto">"Tenía dudas entre el 300 y el 600. Me asesoraron muy bien y elegí el 300 duplo. Ahora mezclo en minutos lo que antes me llevaba media hora. Una inversión que se paga sola."</p>
+            <div class="testimonio-autor">Lucas Ferreyra</div>
+            <div class="testimonio-rol">Productor agropecuario — Santa Fe</div>
+          </div>
+        </div>
+        <div class="testimonio-slide">
+          <div class="testimonio-avatar">GP</div>
+          <div class="testimonio-content">
+            <div class="testimonio-stars">★★★★★</div>
+            <p class="testimonio-texto">"Arrancamos con el 170L para el drone y en la segunda campaña sumamos el 600. La calidad de fabricación se nota. Estructura sólida, sin filtraciones."</p>
+            <div class="testimonio-autor">Gastón Pereyra</div>
+            <div class="testimonio-rol">Operador de drones agrícolas — Buenos Aires</div>
+          </div>
+        </div>
+        <div class="testimonio-slide">
+          <div class="testimonio-avatar">CA</div>
+          <div class="testimonio-content">
+            <div class="testimonio-stars">★★★★★</div>
+            <p class="testimonio-texto">"Fabricación nacional, repuestos disponibles acá. No dependés de importaciones ni de tiempos de espera. Ya vamos por el segundo equipo."</p>
+            <div class="testimonio-autor">Carolina Acosta</div>
+            <div class="testimonio-rol">Agrónoma — Entre Ríos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-btn" id="prevBtn" aria-label="Anterior">&#8592;</button>
+      <div class="carousel-dots" id="carouselDots"></div>
+      <button class="carousel-btn" id="nextBtn" aria-label="Siguiente">&#8594;</button>
+    </div>
+  </div>
+</section>
+
+<!-- POR QUÉ -->
+<section id="por-que">
+  <div class="section-header">
+    <p class="section-eyebrow" data-anim="left">Diferenciales</p>
+    <h2 class="section-title" data-anim data-delay="1">¿Por qué elegir Aguará?</h2>
+  </div>
+  <div class="beneficios-grid">
+    <div class="beneficio" data-anim data-delay="1">
+      <span class="beneficio-icon">🌾</span>
+      <h3>Especialistas en agro</h3>
+      <p>Diseñados exclusivamente para drones y pulverizadoras. Soluciones específicas para el campo.</p>
+    </div>
+    <div class="beneficio" data-anim data-delay="2">
+      <span class="beneficio-icon">⚙️</span>
+      <h3>Simple o Duplo</h3>
+      <p>Bomba 220V o rotor + bomba según la complejidad de tu mezcla y exigencia operativa.</p>
+    </div>
+    <div class="beneficio" data-anim data-delay="3">
+      <span class="beneficio-icon">🏭</span>
+      <h3>Fabricación nacional</h3>
+      <p>100% fabricados en Argentina. Repuestos locales, soporte cercano. Sin esperas de importación.</p>
+    </div>
+    <div class="beneficio" data-anim data-delay="4">
+      <span class="beneficio-icon">💳</span>
+      <h3>Precio y financiación</h3>
+      <p>Consultá precios actualizados y planes de pago adaptados a tu escala de producción.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="faq-header">
+    <p class="section-eyebrow" data-anim="left">Dudas frecuentes</p>
+    <h2 class="section-title" data-anim data-delay="1">Preguntas frecuentes</h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item" data-anim data-delay="1">
+      <button class="faq-question" aria-expanded="false">
+        <span>¿Cuál es la diferencia entre Simple y Duplo?</span>
+        <span class="faq-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        <p>El <strong>Simple</strong> usa una bomba 220V que recircula el caldo. El <strong>Duplo</strong> suma un rotor eléctrico que agita desde adentro del tanque logrando una mezcla más homogénea en caldos complejos.</p>
+      </div></div>
+    </div>
+    <div class="faq-item" data-anim data-delay="3">
+      <button class="faq-question" aria-expanded="false">
+        <span>¿Qué modelo me conviene?</span>
+        <span class="faq-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        <p>Depende del uso que le tengas que dar, lo más recomendable es que nos consultes y nos comentes qué uso le querés dar al mixer para recomendarte el que más se adapte a tu necesidad.</p>
+      </div></div>
+    </div>
+    <div class="faq-item" data-anim data-delay="4">
+      <button class="faq-question" aria-expanded="false">
+        <span>¿Tienen financiación?</span>
+        <span class="faq-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        <p>Sí. Escribinos por WhatsApp o Instagram para recibir la lista de precios actualizada y las opciones de pago disponibles.</p>
+      </div></div>
+    </div>
+    <div class="faq-item" data-anim data-delay="6">
+      <button class="faq-question" aria-expanded="false">
+        <span>¿Hacen envíos a todo el país?</span>
+        <span class="faq-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        <p>Sí, enviamos a todo el territorio argentino. Consultanos para coordinar destino, plazo y costo de tu pedido.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="contacto-inner">
+    <h2 class="contacto-title" data-anim="scale">CONSULTE</h2>
+    <p class="contacto-sub-title" data-anim data-delay="1">PRECIO Y FINANCIACIÓN</p>
+    <div class="contacto-btns" data-anim data-delay="2">
+      <a href="https://wa.me/5493416426353?text=Hola!%20Me%20interesa%20conocer%20los%20Speed%20Blend%20de%20Aguar%C3%A1"
+         class="btn-icono btn-wa" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/aguara_soluciones/"
+         class="btn-icono btn-ig" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=61560435545137&locale=es_LA" class="btn-icono btn-fb" target="_blank" rel="noopener" aria-label="Facebook Aguará">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.532-4.697 1.313 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+      </a>
+    </div>
+    <div class="contacto-logo">
+      <img src="LOGO AGUARA SIN TEXTO BLANCO.png" alt="Aguará" onerror="this.style.display='none'">
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2025 <strong>Aguará Soluciones</strong> — Línea Speed Blend</p>
+</footer>
+
+<!-- BOTONES FLOTANTES -->
+<div class="social-float">
+  <a href="https://wa.me/5493416426353?text=Hola!%20Me%20interesa%20conocer%20los%20Speed%20Blend%20de%20Aguar%C3%A1"
+     class="sf-wa" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+  </a>
+  <a href="https://www.instagram.com/aguara_soluciones/"
+     class="sf-ig" target="_blank" rel="noopener" aria-label="Instagram @aguara_soluciones">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+  </a>
+  <a href="https://www.facebook.com/profile.php?id=61560435545137&locale=es_LA"
+     class="sf-fb" target="_blank" rel="noopener" aria-label="Facebook Aguará">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.532-4.697 1.313 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+  </a>
+</div>
+
+<script>
+  // ── Scroll suave con easing personalizado ──
+  // ease-in-out-quart: se acelera al inicio, desacelera al llegar
+  function easeInOutQuart(t) {
+    return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+  }
+
+  function smoothScrollTo(targetY, duration) {
+    const startY = window.scrollY;
+    const diff   = targetY - startY;
+    let start    = null;
+
+    function step(ts) {
+      if (!start) start = ts;
+      const elapsed  = ts - start;
+      const progress = Math.min(elapsed / duration, 1);
+      window.scrollTo(0, startY + diff * easeInOutQuart(progress));
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Interceptar todos los links de anclaje — nav-divider, sticky, hero-nav
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (!href || !href.startsWith('#')) return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      const offsetTop = target.getBoundingClientRect().top + window.scrollY - 0;
+      smoothScrollTo(offsetTop, 900); // 900ms — visible pero no lento
+    });
+  });
+
+  // Sticky bar
+  const stickyBar = document.getElementById('stickyBar');
+  window.addEventListener('scroll', () => {
+    stickyBar.classList.toggle('visible', window.scrollY > window.innerHeight * 0.55);
+  }, { passive: true });
+
+  // Hamburger
+  const ham   = document.getElementById('stickyHam');
+  const links = document.getElementById('stickyLinks');
+  ham.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  // Carrusel
+  const track  = document.getElementById('carouselTrack');
+  const slides = track.querySelectorAll('.testimonio-slide');
+  const dots   = document.getElementById('carouselDots');
+  let cur = 0, timer;
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Testimonio ' + (i + 1));
+    d.addEventListener('click', () => go(i));
+    dots.appendChild(d);
+  });
+
+  function go(i) {
+    cur = ((i % slides.length) + slides.length) % slides.length;
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    dots.querySelectorAll('.carousel-dot').forEach((d, j) => d.classList.toggle('active', j === cur));
+    reset();
+  }
+  function reset() {
+    clearInterval(timer);
+    timer = setInterval(() => go(cur + 1), 5000);
+  }
+  document.getElementById('prevBtn').addEventListener('click', () => go(cur - 1));
+  document.getElementById('nextBtn').addEventListener('click', () => go(cur + 1));
+  track.closest('.carousel-track-outer').addEventListener('mouseenter', () => clearInterval(timer));
+  track.closest('.carousel-track-outer').addEventListener('mouseleave', reset);
+  reset();
+
+  // FAQ
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-question').addEventListener('click', () => {
+      const open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(o => {
+        o.classList.remove('open');
+        o.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+      });
+      if (!open) {
+        item.classList.add('open');
+        item.querySelector('.faq-question').setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  // Animaciones scroll — una sola vez
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('anim-in'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -28px 0px' });
+
+  // Animaciones scroll — con replay (productos + FAQ)
+  const replayObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('anim-in');
+      } else {
+        e.target.classList.remove('anim-in');
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -28px 0px' });
+
+  document.querySelectorAll('[data-anim]').forEach(el => {
+    if (el.closest('#hero')) return;
+    const isReplay = el.classList.contains('producto-card') || !!el.closest('#faq');
+    (isReplay ? replayObs : obs).observe(el);
+  });
+
+  // Hero: anima al cargar
+  document.querySelectorAll('#hero [data-anim]').forEach((el, i) =>
+    setTimeout(() => el.classList.add('anim-in'), 120 + i * 90)
+  );
+
+  // Placeholder fotos
+  document.querySelectorAll('.card-photo img').forEach(img => {
+    const ph = img.nextElementSibling;
+    img.addEventListener('load', () => { if (ph && img.naturalWidth > 0) ph.style.display = 'none'; });
+  });
+
+  // Ocultar botones flotantes cuando #contacto es visible
+  const socialFloat = document.querySelector('.social-float');
+  const contactoSec = document.getElementById('contacto');
+  const floatObs = new IntersectionObserver(entries => {
+    entries.forEach(e => socialFloat.classList.toggle('hidden', e.isIntersecting));
+  }, { threshold: 0.15 });
+  if (contactoSec) floatObs.observe(contactoSec);
+
+  // Header color dinámico según sección visible
+  const BAR_H = 54;
+  const orangeIds = ['productos', 'faq'];
+  const orangeSecs = orangeIds.map(id => document.getElementById(id)).filter(Boolean);
+
+  function updateHeaderColor() {
+    const inOrange = orangeSecs.some(sec => {
+      const r = sec.getBoundingClientRect();
+      return r.top <= BAR_H && r.bottom > BAR_H;
+    });
+    stickyBar.classList.toggle('header-orange', inOrange);
+  }
+
+  window.addEventListener('scroll', updateHeaderColor, { passive: true });
+  updateHeaderColor();
+</script>
+
+</body>
+</html>
