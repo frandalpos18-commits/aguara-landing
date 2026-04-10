@@ -972,7 +972,7 @@
 
       /* Hero */
       .hero-content { margin-top: -12vh; }
-      .hero-logo { height: 180px; margin-bottom: -2rem; }
+      .hero-logo { height: 360px; margin-bottom: -2rem; }
 
       /* Productos */
       .productos-grid  { grid-template-columns: 1fr; }
@@ -1465,7 +1465,7 @@
 
   document.querySelectorAll('[data-anim]').forEach(el => {
     if (el.closest('#hero')) return;
-    const isReplay = el.classList.contains('producto-card') || !!el.closest('#faq');
+    const isReplay = el.classList.contains('producto-card') || !!el.closest('#faq') || el.classList.contains('beneficio');
     (isReplay ? replayObs : obs).observe(el);
   });
 
