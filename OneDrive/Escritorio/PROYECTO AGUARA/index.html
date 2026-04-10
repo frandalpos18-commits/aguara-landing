@@ -97,7 +97,7 @@
     }
     .producto-card[data-anim].anim-in,
     .faq-item[data-anim].anim-in {
-      transition: opacity 3500ms cubic-bezier(0.0, 0.0, 0.2, 1), transform 3500ms cubic-bezier(0.0, 0.0, 0.2, 1);
+      transition: opacity 1500ms cubic-bezier(0.0, 0.0, 0.2, 1), transform 1500ms cubic-bezier(0.0, 0.0, 0.2, 1);
     }
     [data-delay="1"].anim-in { transition-delay: 70ms; }
     [data-delay="2"].anim-in { transition-delay: 130ms; }
@@ -951,24 +951,47 @@
     }
     @media (max-width: 768px) {
       :root { --s9: 20px; --s10: 72px; }
+
+      /* Header */
+      .sticky-bar { height: 70px; }
+      .sticky-logo img { height: 52px; }
       .sticky-links { display: none; }
       .sticky-links.open {
         display: flex;
         position: absolute;
-        top: 54px; left: 0; right: 0;
+        top: 70px; left: 0; right: 0;
         flex-direction: column;
         background: var(--negro);
         padding: var(--s3) 0 var(--s5);
         gap: 0;
+        z-index: 999;
       }
+      .sticky-bar.header-orange .sticky-links.open { background: var(--naranja); }
       .sticky-links.open li a { padding: var(--s4) var(--s6); display: block; }
       .sticky-ham { display: flex; }
-      .hero-logo { height: 160px; }
+
+      /* Hero */
+      .hero-content { margin-top: -12vh; }
+      .hero-logo { height: 180px; margin-bottom: -2rem; }
+
+      /* Productos */
       .productos-grid  { grid-template-columns: 1fr; }
+      .producto-card { min-height: auto; }
+      .card-photo { flex: 0 0 55%; }
+      .card-body  { flex: 0 0 45%; }
+
+      /* Beneficios */
       .beneficios-grid { grid-template-columns: 1fr 1fr; }
+
+      /* Testimonios */
       .testimonio-slide { padding: var(--s6); flex-direction: column; gap: var(--s4); }
+
+      /* Contacto — mantener la curva pero ajustar tamaño */
+      #contacto::before {
+        top: -40px;
+        height: 80px;
+      }
       .section-sub { white-space: normal; }
-      #contacto::before { display: none; }
     }
     @media (max-width: 520px) {
       .beneficios-grid { grid-template-columns: 1fr; }
@@ -1466,7 +1489,7 @@
   if (contactoSec) floatObs.observe(contactoSec);
 
   // Header color dinámico según sección visible
-  const BAR_H = 54;
+  const BAR_H = parseInt(getComputedStyle(stickyBar).height) || 70;
   const orangeIds = ['productos', 'faq'];
   const orangeSecs = orangeIds.map(id => document.getElementById(id)).filter(Boolean);
 
