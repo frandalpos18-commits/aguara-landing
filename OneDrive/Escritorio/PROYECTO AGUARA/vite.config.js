@@ -7,7 +7,7 @@ export default defineConfig({
   ],
   build: {
     outDir: 'dist',
-    minify: 'terser',
+    minify: 'esbuild',
   },
   server: {
     port: 3000,
