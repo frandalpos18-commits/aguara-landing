@@ -953,21 +953,21 @@
       :root { --s9: 20px; --s10: 72px; }
 
       /* Header */
-      .sticky-bar { height: 130px; }
-      .sticky-logo img { height: 160px; }
+      .sticky-bar { height: 58px; overflow: visible; }
+      .sticky-logo img { height: 120px; }
       .sticky-links { display: none; }
       .sticky-links.open {
         display: flex;
         position: absolute;
-        top: 130px; left: 0; right: 0;
+        top: 58px; left: 0; right: 0;
         flex-direction: column;
         background: var(--negro);
-        padding: var(--s3) 0 var(--s5);
+        padding: var(--s2) 0 var(--s3);
         gap: 0;
         z-index: 999;
       }
       .sticky-bar.header-orange .sticky-links.open { background: var(--naranja); }
-      .sticky-links.open li a { padding: var(--s4) var(--s6); display: block; }
+      .sticky-links.open li a { padding: var(--s3) var(--s6); display: block; font-size: 0.85rem; }
       .sticky-ham { display: flex; }
 
       /* Hero */
