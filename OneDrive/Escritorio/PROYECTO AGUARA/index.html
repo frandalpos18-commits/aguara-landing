@@ -96,8 +96,9 @@
       transition: opacity 550ms var(--expo-out), transform 550ms var(--expo-out);
     }
     .producto-card[data-anim].anim-in,
-    .faq-item[data-anim].anim-in {
-      transition: opacity 1500ms cubic-bezier(0.0, 0.0, 0.2, 1), transform 1500ms cubic-bezier(0.0, 0.0, 0.2, 1);
+    .faq-item[data-anim].anim-in,
+    .beneficio[data-anim].anim-in {
+      transition: opacity 2000ms cubic-bezier(0.0, 0.0, 0.2, 1), transform 2000ms cubic-bezier(0.0, 0.0, 0.2, 1);
     }
     [data-delay="1"].anim-in { transition-delay: 70ms; }
     [data-delay="2"].anim-in { transition-delay: 130ms; }
@@ -992,6 +993,13 @@
         height: 80px;
       }
       .section-sub { white-space: normal; }
+
+      /* Animaciones más rápidas en mobile */
+      .producto-card[data-anim].anim-in,
+      .faq-item[data-anim].anim-in,
+      .beneficio[data-anim].anim-in {
+        transition: opacity 1000ms cubic-bezier(0.0, 0.0, 0.2, 1), transform 1000ms cubic-bezier(0.0, 0.0, 0.2, 1);
+      }
     }
     @media (max-width: 520px) {
       .beneficios-grid { grid-template-columns: 1fr; }
