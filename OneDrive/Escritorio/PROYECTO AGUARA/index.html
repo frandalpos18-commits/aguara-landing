@@ -137,8 +137,8 @@
       box-shadow: 0 1px 0 oklch(100% 0 0 / 0.08);
     }
 
-    /* Header naranja — secciones blancas (Productos, FAQ) */
-    .sticky-bar.scrolled.header-orange { background: var(--naranja); box-shadow: 0 1px 0 oklch(0% 0 0 / 0.12); }
+    /* Header naranja — activa sin importar si está scrolled o no */
+    .sticky-bar.header-orange { background: var(--naranja) !important; box-shadow: 0 1px 0 oklch(0% 0 0 / 0.12) !important; }
     .sticky-bar.header-orange .sticky-logo { color: var(--negro); }
     .sticky-bar.header-orange .sticky-links a:not(.sticky-cta) { color: var(--blanco); }
     .sticky-bar.header-orange .sticky-links a:not(.sticky-cta):hover { color: var(--blanco); }
