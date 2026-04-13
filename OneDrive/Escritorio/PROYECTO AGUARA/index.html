@@ -18,7 +18,7 @@
   -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&family=Oswald:wght@600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700&family=Oswald:wght@600;700&display=swap" rel="stylesheet" />
 
   <!-- Filtro SVG fuera del flujo del documento — elimina fondo blanco de logo JFIF -->
   <svg xmlns="http://www.w3.org/2000/svg" style="position:fixed;top:-9999px;left:-9999px;width:1px;height:1px" aria-hidden="true">
@@ -44,16 +44,17 @@
        OKLCH — perceptually uniform color space
     ═══════════════════════════════════════════════════ */
     :root {
-      --negro:          oklch(8%  0    0);
-      --negro-2:        oklch(13% 0    0);
-      --negro-3:        oklch(18% 0    0);
-      --naranja:        oklch(58% 0.19 42);
-      --naranja-hover:  oklch(63% 0.19 42);
-      --naranja-suave:  oklch(96% 0.03 42);
-      --blanco:         oklch(99% 0    0);
-      --gris-linea:     oklch(91% 0    0);
-      --gris-texto:     oklch(42% 0    0);
-      --gris-suave:     oklch(95% 0    0);
+      /* Paleta corporativa Aguará */
+      --negro:          #363534;   /* Auxiliar Negro Pant. Black 7C */
+      --negro-2:        #4a4846;
+      --negro-3:        #5e5b59;
+      --naranja:        #E05206;   /* Principal Naranja Pant. 166C */
+      --naranja-hover:  #FF9133;   /* Secundario Naranja Light Pant. 1495C */
+      --naranja-suave:  #fff0e8;
+      --blanco:         #FFFFFF;
+      --gris-linea:     #ADAFAF;   /* Secundario Gris Pant. C. Gray 6C */
+      --gris-texto:     #636363;
+      --gris-suave:     #f5f5f5;
 
       /* Spacing 4pt */
       --s1:4px; --s2:8px; --s3:12px; --s4:16px;
@@ -71,7 +72,7 @@
     html { scroll-behavior: auto; }
 
     body {
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       color: var(--negro);
       background: var(--blanco);
       line-height: 1.6;
@@ -147,7 +148,7 @@
     .sticky-bar.header-orange .sticky-links a:not(.sticky-cta)::after { background: var(--negro); }
 
     .sticky-logo {
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-weight: 700;
       font-size: 1.1rem;
       color: var(--blanco);
@@ -164,7 +165,7 @@
     .sticky-links a {
       color: oklch(72% 0 0);
       text-decoration: none;
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-size: 0.819rem;
       font-weight: 500;
       letter-spacing: 0.1em;
@@ -188,9 +189,9 @@
     .sticky-links a:not(.sticky-cta):hover { color: var(--blanco); transform: translateY(-1px); }
     .sticky-links a:not(.sticky-cta):hover::after { transform: scaleX(1); }
     @keyframes pulse-cta {
-      0%   { box-shadow: 0 0 0 0 rgba(229,90,26,0.55); }
-      70%  { box-shadow: 0 0 0 10px rgba(229,90,26,0); }
-      100% { box-shadow: 0 0 0 0 rgba(229,90,26,0); }
+      0%   { box-shadow: 0 0 0 0 rgba(224,82,6,0.55); }
+      70%  { box-shadow: 0 0 0 10px rgba(224,82,6,0); }
+      100% { box-shadow: 0 0 0 0 rgba(224,82,6,0); }
     }
     .sticky-cta {
       background: var(--naranja) !important;
@@ -282,13 +283,13 @@
       height: auto;
       object-fit: contain;
       /* PNG con transparencia — glow sutil de detalle */
-      filter: drop-shadow(0 0 10px rgba(229,90,26,0.28));
+      filter: drop-shadow(0 0 10px rgba(224,82,6,0.28));
       margin-bottom: -5rem;
     }
 
     /* "AGUARÁ" — igual que la imagen de referencia */
     .hero-brand-name {
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-weight: 400;
       font-size: clamp(3.5rem, 10vw, 8rem);
       color: var(--naranja);
@@ -310,24 +311,24 @@
       padding: var(--s3) var(--s7);
       background: var(--naranja);
       color: var(--blanco);
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-weight: 600;
       font-size: clamp(0.8rem, 1.4vw, 1rem);
       letter-spacing: 0.04em;
       text-decoration: none;
       text-transform: uppercase;
       border-radius: 6px;
-      box-shadow: 0 0 10px rgba(229,90,26,0.35), 0 0 24px rgba(229,90,26,0.15);
+      box-shadow: 0 0 10px rgba(224,82,6,0.35), 0 0 24px rgba(224,82,6,0.15);
       transition: background 180ms var(--quart-out), transform 180ms var(--quart-out), box-shadow 180ms var(--quart-out);
     }
     .hero-cta:hover {
       background: var(--naranja-hover);
       transform: translateY(-2px);
-      box-shadow: 0 0 14px rgba(229,90,26,0.5), 0 0 32px rgba(229,90,26,0.2);
+      box-shadow: 0 0 14px rgba(224,82,6,0.5), 0 0 32px rgba(224,82,6,0.2);
     }
 
     .hero-tagline {
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-weight: 400;
       font-style: italic;
       font-size: clamp(0.84rem, 1.96vw, 1.4rem);
@@ -359,7 +360,7 @@
     .nav-divider a {
       color: var(--blanco);
       text-decoration: none;
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 0.12em;
@@ -375,7 +376,7 @@
        TIPOGRAFÍA COMPARTIDA — Oswald para títulos
     ═══════════════════════════════════════════════════ */
     .section-eyebrow {
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-size: 0.72rem;
       font-weight: 500;
       letter-spacing: 0.28em;
@@ -384,7 +385,7 @@
       margin-bottom: var(--s2);
     }
     .section-title {
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-size: clamp(2rem, 4vw, 3.2rem);
       font-weight: 700;
       color: var(--negro);
@@ -466,7 +467,7 @@
       background: var(--gris-suave);
     }
     .vol-big {
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-weight: 700;
       font-size: 3.5rem;
       color: var(--naranja);
@@ -491,7 +492,7 @@
       letter-spacing: 0.03em;
     }
     .card-variant {
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-size: 0.65rem;
       font-weight: 500;
       text-transform: uppercase;
@@ -504,7 +505,7 @@
 
     .card-body { padding: var(--s4); flex: 0 0 40%; display: flex; flex-direction: column; }
     .card-title {
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-weight: 600;
       font-size: 1.05rem;
       color: var(--negro);
@@ -523,7 +524,7 @@
 
     .card-specs { list-style: none; flex: 1; margin-bottom: var(--s5); }
     .card-specs li {
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-size: 0.82rem;
       color: var(--gris-texto);
       padding: 4px 0;
@@ -550,7 +551,7 @@
       color: var(--blanco);
       padding: var(--s3) var(--s5);
       border-radius: 2px;
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-weight: 600;
       font-size: 0.82rem;
       letter-spacing: 0.1em;
@@ -568,9 +569,9 @@
       padding: var(--s9) var(--s9);
       overflow: hidden;
       border-top: 1px solid transparent;
-      border-image: linear-gradient(to right, transparent, rgba(229,90,26,0.45) 25%, rgba(229,90,26,0.45) 75%, transparent) 1;
+      border-image: linear-gradient(to right, transparent, rgba(224,82,6,0.45) 25%, rgba(224,82,6,0.45) 75%, transparent) 1;
     }
-    #testimonios .section-title   { color: var(--naranja); font-size: clamp(2.5rem, 5vw, 4rem); text-shadow: 0 2px 16px oklch(58% 0.19 42 / 0.35); }
+    #testimonios .section-title   { color: var(--naranja); font-size: clamp(2.5rem, 5vw, 4rem); text-shadow: 0 2px 16px rgba(224,82,6,0.35); }
     .testimonios-header { margin-bottom: var(--s7); }
 
     .carousel-track-outer { overflow: hidden; border-radius: 4px; }
@@ -597,7 +598,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-weight: 700;
       font-size: 1.1rem;
       color: var(--blanco);
@@ -612,7 +613,7 @@
       margin-bottom: var(--s3);
     }
     .testimonio-texto {
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-size: 1rem;
       color: oklch(88% 0 0);
       font-style: italic;
@@ -621,7 +622,7 @@
       max-width: 72ch;
     }
     .testimonio-autor {
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-weight: 600;
       font-size: 0.88rem;
       color: var(--naranja);
@@ -629,7 +630,7 @@
       text-transform: uppercase;
     }
     .testimonio-rol {
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-size: 0.8rem;
       color: oklch(52% 0 0);
       margin-top: 2px;
@@ -673,7 +674,7 @@
     ═══════════════════════════════════════════════════ */
     #por-que {
       /* Un tono más claro que el naranja puro — menos saturado */
-      background: oklch(68% 0.17 42);
+      background: #E05206;
       padding: var(--s9) var(--s9);
       border-top: 1px solid transparent;
       border-image: linear-gradient(to right, transparent, rgba(255,255,255,0.35) 25%, rgba(255,255,255,0.35) 75%, transparent) 1;
@@ -705,7 +706,7 @@
     }
     .beneficio-icon { font-size: 1.8rem; margin-bottom: var(--s4); display: block; }
     .beneficio h3 {
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-weight: 600;
       font-size: 0.95rem;
       color: var(--blanco);
@@ -714,7 +715,7 @@
       text-transform: uppercase;
     }
     .beneficio p {
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-size: 0.88rem;
       color: oklch(100% 0 0 / 0.75);
       line-height: 1.65;
@@ -726,7 +727,7 @@
     #faq {
       background: var(--blanco);
       border-top: 1px solid transparent;
-      border-image: linear-gradient(to right, transparent, rgba(229,90,26,0.2) 25%, rgba(229,90,26,0.2) 75%, transparent) 1;
+      border-image: linear-gradient(to right, transparent, rgba(224,82,6,0.2) 25%, rgba(224,82,6,0.2) 75%, transparent) 1;
       padding: var(--s9) var(--s9);
     }
     .faq-header { margin-bottom: var(--s7); }
@@ -758,7 +759,7 @@
     }
     .faq-question:hover { background: var(--naranja-suave); }
     .faq-question span:first-child {
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-weight: 600;
       font-size: 1rem;
       color: var(--negro);
@@ -785,7 +786,7 @@
     .faq-answer-inner { overflow: hidden; padding: 0 var(--s6); }
     .faq-item.open .faq-answer-inner { padding-bottom: var(--s5); }
     .faq-answer-inner p {
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-size: 0.93rem;
       color: var(--gris-texto);
       line-height: 1.75;
@@ -813,7 +814,7 @@
     .contacto-inner { position: relative; max-width: 600px; margin: 0 auto; }
 
     .contacto-eyebrow {
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-size: 0.72rem;
       font-weight: 500;
       letter-spacing: 0.28em;
@@ -823,7 +824,7 @@
     }
     /* "CONSULTE" — estilo idéntico al catálogo */
     .contacto-title {
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-size: clamp(3.5rem, 9vw, 7rem);
       font-weight: 700;
       font-style: italic;
@@ -833,7 +834,7 @@
       letter-spacing: -0.02em;
     }
     .contacto-sub-title {
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-size: clamp(1rem, 2.5vw, 1.6rem);
       font-style: italic;
       font-weight: 500;
@@ -870,7 +871,7 @@
       padding: var(--s4) var(--s8);
       background: #25d366;
       color: var(--blanco);
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-weight: 700;
       font-size: clamp(1rem, 2vw, 1.3rem);
       letter-spacing: 0.08em;
@@ -898,23 +899,23 @@
       height: 72px;
       pointer-events: none;
     }
-    .grad-white-black  { background: linear-gradient(to bottom, oklch(99% 0 0),     oklch(8% 0 0)); }
-    .grad-black-orange { background: linear-gradient(to bottom, oklch(8% 0 0),      oklch(68% 0.17 42)); }
-    .grad-orange-white { background: linear-gradient(to bottom, oklch(68% 0.17 42), oklch(99% 0 0)); }
-    .grad-white-black2 { background: linear-gradient(to bottom, oklch(99% 0 0),     oklch(8% 0 0)); }
-    .grad-black-dark   { background: linear-gradient(to bottom, oklch(8% 0 0),      oklch(5% 0 0)); }
+    .grad-white-black  { background: linear-gradient(to bottom, #FFFFFF,     #363534); }
+    .grad-black-orange { background: linear-gradient(to bottom, #363534,      #E05206); }
+    .grad-orange-white { background: linear-gradient(to bottom, #E05206, #FFFFFF); }
+    .grad-white-black2 { background: linear-gradient(to bottom, #FFFFFF,     #363534); }
+    .grad-black-dark   { background: linear-gradient(to bottom, #363534,      #2a2928); }
 
     /* ═══════════════════════════════════════════════════
        FOOTER
     ═══════════════════════════════════════════════════ */
     footer {
-      background: oklch(5% 0 0);
+      background: #2a2928;
       border-top: 1px solid transparent;
       border-image: linear-gradient(to right, transparent, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.1) 75%, transparent) 1;
       color: oklch(38% 0 0);
       text-align: center;
       padding: var(--s5) var(--s9);
-      font-family: 'Hanken Grotesk', sans-serif;
+      font-family: 'Barlow', sans-serif;
       font-size: 0.8rem;
     }
     footer strong { color: var(--naranja); }
