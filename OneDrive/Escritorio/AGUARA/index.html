@@ -998,9 +998,9 @@
       .beneficios-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 768px) {
-      :root { --s9: 20px; --s10: 72px; }
+      :root { --s9: 20px; --s10: 64px; }
 
-      /* Header — negro siempre en mobile, sin transparente */
+      /* Header — negro siempre en mobile */
       .sticky-bar { height: 58px; overflow: visible; background: var(--negro); box-shadow: 0 1px 0 oklch(100% 0 0 / 0.08); }
       .sticky-logo img { height: 120px; }
       .sticky-links { display: none; }
@@ -1019,37 +1019,51 @@
       .sticky-ham { display: flex; }
 
       /* Hero */
-      .hero-content { margin-top: -12vh; }
-      .hero-logo { height: 360px; margin-bottom: -2rem; }
+      .hero-content { margin-top: -8vh; }
+      .hero-logo { width: min(280px, 74vw); height: auto; margin-bottom: -1.5rem; }
+      .hero-cta { font-size: 0.9rem; padding: 12px var(--s6); }
 
-      /* Productos */
-      .productos-grid  { grid-template-columns: 1fr; }
-      .producto-card { min-height: auto; }
-      .card-photo { flex: 0 0 55%; }
-      .card-body  { flex: 0 0 45%; }
+      /* Nav divisor — botones más compactos */
+      .nav-divider { padding: var(--s3) var(--s4); gap: 6px; }
+      .nav-divider a { font-size: 0.7rem; padding: 7px 10px; letter-spacing: 0.08em; }
+
+      /* Productos — fix: flex: 0 0 % colapsa sin altura definida, usar px fijo */
+      .productos-grid { grid-template-columns: 1fr; gap: var(--s4); }
+      .producto-card { min-height: auto; flex-direction: column; }
+      .card-photo { flex: none; height: 220px; width: 100%; }
+      .card-body { flex: 1; padding: var(--s4); }
+      .productos-header { margin-bottom: var(--s6); }
 
       /* Beneficios */
       .beneficios-grid { grid-template-columns: 1fr 1fr; }
 
       /* Testimonios */
-      .testimonio-slide { padding: var(--s6); flex-direction: column; gap: var(--s4); }
+      .testimonio-slide { padding: var(--s5) var(--s4); flex-direction: column; gap: var(--s3); }
+      .testimonio-texto { font-size: 0.93rem; }
 
-      /* Contacto — mantener la curva pero ajustar tamaño */
-      #contacto::before {
-        top: -40px;
-        height: 80px;
-      }
+      /* FAQ — reducir padding para touch */
+      .faq-question { padding: var(--s4) var(--s4); }
+      .faq-question span:first-child { font-size: 0.9rem; }
+      .faq-answer-inner { padding: 0 var(--s4); }
+
+      /* Contacto */
+      #contacto::before { top: -40px; height: 80px; }
+      .contacto-wa-btn { width: 100%; justify-content: center; padding: var(--s3) var(--s5); box-sizing: border-box; }
+
+      /* Textos */
       .section-sub { white-space: normal; }
 
-      /* Animaciones más rápidas en mobile */
+      /* Animaciones rápidas en mobile */
       .producto-card[data-anim].anim-in,
       .faq-item[data-anim].anim-in,
       .beneficio[data-anim].anim-in {
-        transition: opacity 1000ms cubic-bezier(0.0, 0.0, 0.2, 1), transform 1000ms cubic-bezier(0.0, 0.0, 0.2, 1);
+        transition: opacity 500ms cubic-bezier(0.0, 0.0, 0.2, 1), transform 500ms cubic-bezier(0.0, 0.0, 0.2, 1);
       }
     }
     @media (max-width: 520px) {
       .beneficios-grid { grid-template-columns: 1fr; }
+      .card-photo { height: 200px; }
+      .nav-divider a { font-size: 0.65rem; padding: 6px 8px; }
     }
 
     /* Deshabilitar todos los efectos hover en touch (mobile) */
