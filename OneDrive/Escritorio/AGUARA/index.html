@@ -686,6 +686,25 @@
     }
     .carousel-dot.active { background: var(--naranja); transform: scale(1.4); }
 
+    .carousel-progress {
+      height: 2px;
+      background: oklch(100% 0 0 / 0.12);
+      border-radius: 1px;
+      margin-top: var(--s4);
+      overflow: hidden;
+    }
+    .carousel-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--naranja);
+      border-radius: 1px;
+      animation: progress-fill 5s linear forwards;
+    }
+    @keyframes progress-fill {
+      from { width: 0%; }
+      to   { width: 100%; }
+    }
+
     /* ═══════════════════════════════════════════════════
        POR QUÉ — naranja
     ═══════════════════════════════════════════════════ */
@@ -1309,6 +1328,9 @@
         </div>
       </div>
     </div>
+    <div class="carousel-progress">
+      <div class="carousel-progress-bar" id="carouselProgressBar"></div>
+    </div>
     <div class="carousel-controls">
       <button class="carousel-btn" id="prevBtn" aria-label="Anterior">&#8592;</button>
       <div class="carousel-dots" id="carouselDots"></div>
@@ -1497,10 +1519,17 @@
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
 
   // Carrusel
-  const track  = document.getElementById('carouselTrack');
-  const slides = track.querySelectorAll('.testimonio-slide');
-  const dots   = document.getElementById('carouselDots');
+  const track       = document.getElementById('carouselTrack');
+  const slides      = track.querySelectorAll('.testimonio-slide');
+  const dots        = document.getElementById('carouselDots');
+  const progressBar = document.getElementById('carouselProgressBar');
   let cur = 0, timer;
+
+  function resetProgress() {
+    progressBar.style.animation = 'none';
+    progressBar.offsetHeight; // fuerza reflow para reiniciar la animación
+    progressBar.style.animation = '';
+  }
 
   slides.forEach((_, i) => {
     const d = document.createElement('button');
@@ -1514,6 +1543,7 @@
     cur = ((i % slides.length) + slides.length) % slides.length;
     track.style.transform = `translateX(-${cur * 100}%)`;
     dots.querySelectorAll('.carousel-dot').forEach((d, j) => d.classList.toggle('active', j === cur));
+    resetProgress();
     reset();
   }
   function reset() {
@@ -1522,8 +1552,14 @@
   }
   document.getElementById('prevBtn').addEventListener('click', () => go(cur - 1));
   document.getElementById('nextBtn').addEventListener('click', () => go(cur + 1));
-  track.closest('.carousel-track-outer').addEventListener('mouseenter', () => clearInterval(timer));
-  track.closest('.carousel-track-outer').addEventListener('mouseleave', reset);
+  track.closest('.carousel-track-outer').addEventListener('mouseenter', () => {
+    clearInterval(timer);
+    progressBar.style.animationPlayState = 'paused';
+  });
+  track.closest('.carousel-track-outer').addEventListener('mouseleave', () => {
+    progressBar.style.animationPlayState = 'running';
+    reset();
+  });
   reset();
 
   // FAQ
