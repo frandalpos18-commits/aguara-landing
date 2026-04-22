@@ -703,39 +703,29 @@
     #por-que .section-title { color: var(--blanco); text-shadow: 0 2px 12px oklch(0% 0 0 / 0.25); }
     #por-que .section-header { margin-bottom: var(--s7); }
 
-    .beneficios-grid {
+    .checks-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--s3);
+    }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
       gap: var(--s4);
-    }
-    .beneficio {
-      background: oklch(0% 0 0 / 0.14);
-      /* Borde blanco claramente visible en los 4 lados */
-      border: 1.5px solid oklch(100% 0 0 / 0.55);
-      border-top: 3px solid var(--blanco);
+      padding: var(--s4) var(--s5);
+      background: oklch(0% 0 0 / 0.12);
       border-radius: 4px;
-      padding: var(--s6) var(--s5);
-      transition: background 200ms var(--quart-out), border-color 200ms var(--quart-out);
+      border: 1px solid oklch(100% 0 0 / 0.22);
+      transition: background 200ms var(--quart-out);
     }
-    .beneficio:hover {
-      background: oklch(0% 0 0 / 0.22);
-      border-color: oklch(100% 0 0 / 0.85);
-    }
-    .beneficio-icon { font-size: 1.8rem; margin-bottom: var(--s4); display: block; }
-    .beneficio h3 {
+    .check-item:hover { background: oklch(0% 0 0 / 0.22); }
+    .check-item svg { width: 22px; height: 22px; flex-shrink: 0; margin-top: 2px; color: var(--blanco); }
+    .check-item span {
       font-family: 'Barlow', sans-serif;
-      font-weight: 600;
       font-size: 0.95rem;
+      font-weight: 500;
       color: var(--blanco);
-      margin-bottom: var(--s3);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-    .beneficio p {
-      font-family: 'Barlow', sans-serif;
-      font-size: 0.88rem;
-      color: oklch(100% 0 0 / 0.75);
-      line-height: 1.65;
+      line-height: 1.45;
     }
 
     /* ═══════════════════════════════════════════════════
@@ -1007,9 +997,9 @@
        RESPONSIVE
     ═══════════════════════════════════════════════════ */
     @media (max-width: 1100px) {
-      .productos-grid  { grid-template-columns: repeat(2, 1fr); }
-      .beneficios-grid { grid-template-columns: repeat(2, 1fr); }
-      .section-sub { white-space: normal; }
+      .productos-grid { grid-template-columns: repeat(2, 1fr); }
+      .checks-grid    { grid-template-columns: repeat(2, 1fr); }
+      .section-sub    { white-space: normal; }
     }
     @media (max-width: 768px) {
       :root { --s9: 20px; --s10: 64px; }
@@ -1050,8 +1040,8 @@
       .card-body { flex: 1; padding: var(--s4); }
       .productos-header { margin-bottom: var(--s6); }
 
-      /* Beneficios */
-      .beneficios-grid { grid-template-columns: 1fr 1fr; }
+      /* Diferenciales */
+      .checks-grid { grid-template-columns: 1fr 1fr; }
 
       /* Testimonios */
       .testimonio-slide { padding: var(--s5) var(--s4); flex-direction: column; gap: var(--s3); }
@@ -1077,7 +1067,7 @@
       }
     }
     @media (max-width: 520px) {
-      .beneficios-grid { grid-template-columns: 1fr; }
+      .checks-grid { grid-template-columns: 1fr; }
       .card-photo { height: 200px; }
       .nav-divider a { font-size: 0.65rem; padding: 6px 8px; }
     }
@@ -1327,26 +1317,42 @@
     <p class="section-eyebrow" data-anim="left">Diferenciales</p>
     <h2 class="section-title" data-anim data-delay="1">¿Por qué elegir Aguará?</h2>
   </div>
-  <div class="beneficios-grid">
-    <div class="beneficio" data-anim data-delay="1">
-      <span class="beneficio-icon">🌾</span>
-      <h3>Especialistas en agro</h3>
-      <p>Diseñados exclusivamente para drones y pulverizadoras. Soluciones específicas para el campo.</p>
+  <div class="checks-grid" data-anim data-delay="2">
+    <div class="check-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" fill-opacity="0.15" stroke-opacity="0.55"/><path d="M7.5 12l3 3 6-6"/></svg>
+      <span>Fácil portabilidad y traslado</span>
     </div>
-    <div class="beneficio" data-anim data-delay="2">
-      <span class="beneficio-icon">⚙️</span>
-      <h3>Simple o Duplo</h3>
-      <p>Bomba 220V o rotor + bomba según la complejidad de tu mezcla y exigencia operativa.</p>
+    <div class="check-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" fill-opacity="0.15" stroke-opacity="0.55"/><path d="M7.5 12l3 3 6-6"/></svg>
+      <span>Mantenimiento simple, sin complicaciones</span>
     </div>
-    <div class="beneficio" data-anim data-delay="3">
-      <span class="beneficio-icon">🏭</span>
-      <h3>Fabricación nacional</h3>
-      <p>100% fabricados en Argentina. Repuestos locales, soporte cercano. Sin esperas de importación.</p>
+    <div class="check-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" fill-opacity="0.15" stroke-opacity="0.55"/><path d="M7.5 12l3 3 6-6"/></svg>
+      <span>Componentes de alta durabilidad</span>
     </div>
-    <div class="beneficio" data-anim data-delay="4">
-      <span class="beneficio-icon">💳</span>
-      <h3>Precio y financiación</h3>
-      <p>Consultá precios actualizados y planes de pago adaptados a tu escala de producción.</p>
+    <div class="check-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" fill-opacity="0.15" stroke-opacity="0.55"/><path d="M7.5 12l3 3 6-6"/></svg>
+      <span>Operación intuitiva desde el primer uso</span>
+    </div>
+    <div class="check-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" fill-opacity="0.15" stroke-opacity="0.55"/><path d="M7.5 12l3 3 6-6"/></svg>
+      <span>Soporte post-venta garantizado</span>
+    </div>
+    <div class="check-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" fill-opacity="0.15" stroke-opacity="0.55"/><path d="M7.5 12l3 3 6-6"/></svg>
+      <span>Planes de pago adaptados a tu escala</span>
+    </div>
+    <div class="check-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" fill-opacity="0.15" stroke-opacity="0.55"/><path d="M7.5 12l3 3 6-6"/></svg>
+      <span>+500 contratistas satisfechos en todo el país</span>
+    </div>
+    <div class="check-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" fill-opacity="0.15" stroke-opacity="0.55"/><path d="M7.5 12l3 3 6-6"/></svg>
+      <span>Envíos a todo el territorio nacional</span>
+    </div>
+    <div class="check-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" fill-opacity="0.15" stroke-opacity="0.55"/><path d="M7.5 12l3 3 6-6"/></svg>
+      <span>Una marca pensada por droneros, para droneros</span>
     </div>
   </div>
 </section>
