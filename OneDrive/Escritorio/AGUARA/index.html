@@ -72,8 +72,13 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    /* scroll-behavior lo manejamos via JS para tener control de duración y easing */
     html { scroll-behavior: auto; }
+
+    :focus-visible {
+      outline: 3px solid var(--naranja);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
 
     body {
       font-family: 'Barlow', sans-serif;
@@ -107,7 +112,7 @@
     .producto-card[data-anim].anim-in,
     .faq-item[data-anim].anim-in,
     .beneficio[data-anim].anim-in {
-      transition: opacity 650ms cubic-bezier(0.0, 0.0, 0.2, 1), transform 650ms cubic-bezier(0.0, 0.0, 0.2, 1);
+      transition: opacity 350ms cubic-bezier(0.0, 0.0, 0.2, 1), transform 350ms cubic-bezier(0.0, 0.0, 0.2, 1);
     }
     [data-delay="1"].anim-in { transition-delay: 70ms; }
     [data-delay="2"].anim-in { transition-delay: 130ms; }
@@ -150,6 +155,9 @@
     .sticky-bar.header-orange .sticky-cta { background: var(--negro) !important; color: var(--blanco) !important; }
     .sticky-bar.header-orange .sticky-cta:hover { background: oklch(18% 0 0) !important; }
     .sticky-bar.header-orange .sticky-links a:not(.sticky-cta)::after { background: var(--negro); }
+    .sticky-links a:not(.sticky-cta).nav-active { color: var(--naranja); }
+    .sticky-links a:not(.sticky-cta).nav-active::after { transform: scaleX(1); }
+    .sticky-bar.header-orange .sticky-links a:not(.sticky-cta).nav-active { color: var(--negro); }
 
     .sticky-logo {
       font-family: 'Barlow', sans-serif;
@@ -373,6 +381,9 @@
       border-radius: 2px;
       background: var(--naranja);
       transition: background 130ms var(--quart-out);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
     }
     .nav-divider a:hover { background: var(--naranja-hover); }
 
@@ -996,6 +1007,7 @@
     @media (max-width: 1100px) {
       .productos-grid  { grid-template-columns: repeat(2, 1fr); }
       .beneficios-grid { grid-template-columns: repeat(2, 1fr); }
+      .section-sub { white-space: normal; }
     }
     @media (max-width: 768px) {
       :root { --s9: 20px; --s10: 64px; }
@@ -1109,7 +1121,7 @@
     <!-- Icono del zorro — fondo blanco eliminado por filtro R−B -->
     <img class="hero-logo" src="logo-aguara-sin-fondo.webp" alt="Aguará"
          onerror="this.style.display='none'">
-    <p class="hero-tagline">La mezcla perfecta para tus aplicaciones</p>
+    <h1 class="hero-tagline">La mezcla perfecta para tus aplicaciones</h1>
     <a href="https://wa.me/5493416426353?text=Hola!%20Quiero%20consultar%20precio%20y%20financiaci%C3%B3n%20del%20Speed%20Blend" class="hero-cta" target="_blank" rel="noopener">Cotiza tu mixer</a>
   </div>
 </section>
@@ -1125,7 +1137,7 @@
   <div class="productos-grid">
     <div class="producto-card" data-anim data-delay="1">
       <div class="card-photo">
-        <img src="speed-blend-170l-simple.webp" alt="Speed Blend 170L Simple" decoding="async" fetchpriority="high">
+        <img src="speed-blend-170l-simple.webp" alt="Speed Blend 170L Simple" width="800" height="800" decoding="async" fetchpriority="high">
         <div class="photo-placeholder"><span class="vol-big">170L</span></div>
       </div>
       <div class="card-stripe">
@@ -1146,7 +1158,7 @@
 
     <div class="producto-card" data-anim data-delay="2">
       <div class="card-photo">
-        <img src="speed-blend-300l-simple.webp" alt="Speed Blend 300L Simple" decoding="async" fetchpriority="high">
+        <img src="speed-blend-300l-simple.webp" alt="Speed Blend 300L Simple" width="800" height="800" decoding="async" fetchpriority="high">
         <div class="photo-placeholder"><span class="vol-big">300L</span></div>
       </div>
       <div class="card-stripe">
@@ -1166,7 +1178,7 @@
 
     <div class="producto-card" data-anim data-delay="3">
       <div class="card-photo">
-        <img src="speed-blend-300l-duplo.webp" alt="Speed Blend 300L Duplo" decoding="async" fetchpriority="high">
+        <img src="speed-blend-300l-duplo.webp" alt="Speed Blend 300L Duplo" width="800" height="800" decoding="async" fetchpriority="high">
         <div class="photo-placeholder"><span class="vol-big">300L</span></div>
       </div>
       <div class="card-stripe">
@@ -1188,7 +1200,7 @@
 
     <div class="producto-card" data-anim data-delay="4">
       <div class="card-photo">
-        <img src="speed-blend-600l-motobomba.webp" alt="Speed Blend 600L Con Motobomba" loading="lazy" decoding="async">
+        <img src="speed-blend-600l-motobomba.webp" alt="Speed Blend 600L Con Motobomba" width="800" height="800" loading="lazy" decoding="async">
         <div class="photo-placeholder"><span class="vol-big">600L</span></div>
       </div>
       <div class="card-stripe">
@@ -1209,7 +1221,7 @@
 
     <div class="producto-card" data-anim data-delay="5">
       <div class="card-photo">
-        <img src="speed-blend-600l-duplo.webp" alt="Speed Blend 600L Duplo" loading="lazy" decoding="async">
+        <img src="speed-blend-600l-duplo.webp" alt="Speed Blend 600L Duplo" width="800" height="800" loading="lazy" decoding="async">
         <div class="photo-placeholder"><span class="vol-big">600L</span></div>
       </div>
       <div class="card-stripe">
@@ -1231,7 +1243,7 @@
 
     <div class="producto-card" data-anim data-delay="6">
       <div class="card-photo">
-        <img src="speed-blend-1200l-motobomba.webp" alt="Speed Blend 1200L Con Motobomba" loading="lazy" decoding="async">
+        <img src="speed-blend-1200l-motobomba.webp" alt="Speed Blend 1200L Con Motobomba" width="800" height="800" loading="lazy" decoding="async">
         <div class="photo-placeholder"><span class="vol-big">1200L</span></div>
       </div>
       <div class="card-stripe">
@@ -1561,12 +1573,29 @@
     stickyBar.classList.toggle('header-orange', inOrange);
   }
 
-  // Combinar ambos listeners para evitar desfase entre scrolled y orange
+  // Active state en nav según sección visible
+  const navSectionIds = ['productos', 'testimonios', 'por-que', 'faq'];
+  const navLinks = document.querySelectorAll('.sticky-links a[href^="#"]');
+  function updateNavActive() {
+    const h = BAR_H() + 20;
+    let active = null;
+    navSectionIds.forEach(id => {
+      const sec = document.getElementById(id);
+      if (!sec) return;
+      const r = sec.getBoundingClientRect();
+      if (r.top <= h && r.bottom > h) active = '#' + id;
+    });
+    navLinks.forEach(a => a.classList.toggle('nav-active', a.getAttribute('href') === active));
+  }
+
+  // Combinar todos los listeners en un solo scroll
   window.addEventListener('scroll', () => {
     updateHeader();
     updateHeaderColor();
+    updateNavActive();
   }, { passive: true });
   updateHeaderColor();
+  updateNavActive();
 </script>
 
 </body>
