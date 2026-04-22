@@ -140,8 +140,9 @@
       justify-content: space-between;
       padding: 0 var(--s9);
       box-shadow: none;
-      transition: background 350ms var(--expo-out), box-shadow 350ms var(--expo-out);
+      transition: background 350ms var(--expo-out), box-shadow 350ms var(--expo-out), height 350ms var(--expo-out);
     }
+    .sticky-bar.shrunk { height: 66px; }
     .sticky-bar.scrolled {
       background: var(--negro);
       box-shadow: 0 1px 0 oklch(100% 0 0 / 0.08);
@@ -171,7 +172,8 @@
       gap: var(--s3);
       transition: color 280ms var(--expo-out);
     }
-    .sticky-logo img { height: 216px; object-fit: contain; mix-blend-mode: screen; }
+    .sticky-logo img { height: 216px; object-fit: contain; mix-blend-mode: screen; transition: height 350ms var(--expo-out); }
+    .sticky-bar.shrunk .sticky-logo img { height: 120px; }
 
     .sticky-links { display: flex; gap: var(--s2); list-style: none; align-items: center; }
     .sticky-links a {
@@ -1012,9 +1014,11 @@
     @media (max-width: 768px) {
       :root { --s9: 20px; --s10: 64px; }
 
-      /* Header — negro siempre en mobile */
-      .sticky-bar { height: 58px; overflow: visible; background: var(--negro); box-shadow: 0 1px 0 oklch(100% 0 0 / 0.08); }
-      .sticky-logo img { height: 120px; }
+      /* Header — negro siempre en mobile, sin efecto shrunk */
+      .sticky-bar,
+      .sticky-bar.shrunk { height: 58px; overflow: visible; background: var(--negro); box-shadow: 0 1px 0 oklch(100% 0 0 / 0.08); }
+      .sticky-logo img,
+      .sticky-bar.shrunk .sticky-logo img { height: 120px; }
       .sticky-links { display: none; }
       .sticky-links.open {
         display: flex;
@@ -1470,6 +1474,7 @@
   function updateHeader() {
     const scrolled = window.scrollY > window.innerHeight * 0.7;
     stickyBar.classList.toggle('scrolled', scrolled);
+    stickyBar.classList.toggle('shrunk', scrolled);
   }
   updateHeader();
 
