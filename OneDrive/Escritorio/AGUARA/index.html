@@ -591,7 +591,7 @@
     #testimonios .section-title   { color: var(--naranja); font-size: clamp(2.5rem, 5vw, 4rem); text-shadow: 0 2px 16px rgba(224,82,6,0.35); }
     .testimonios-header { margin-bottom: var(--s7); }
 
-    .carousel-track-outer { overflow: hidden; border-radius: 4px; }
+    .carousel-track-outer { overflow: hidden; border-radius: 4px; position: relative; }
     .carousel-track {
       display: flex;
       transition: transform 480ms var(--expo-out);
@@ -687,11 +687,10 @@
     .carousel-dot.active { background: var(--naranja); transform: scale(1.4); }
 
     .carousel-progress {
-      height: 2px;
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
       background: oklch(100% 0 0 / 0.12);
-      border-radius: 1px;
-      margin-top: var(--s4);
-      overflow: hidden;
     }
     .carousel-progress-bar {
       height: 100%;
@@ -1327,9 +1326,9 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="carousel-progress">
-      <div class="carousel-progress-bar" id="carouselProgressBar"></div>
+      <div class="carousel-progress">
+        <div class="carousel-progress-bar" id="carouselProgressBar"></div>
+      </div>
     </div>
     <div class="carousel-controls">
       <button class="carousel-btn" id="prevBtn" aria-label="Anterior">&#8592;</button>
