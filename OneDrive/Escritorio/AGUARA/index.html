@@ -716,9 +716,14 @@
       background: oklch(0% 0 0 / 0.12);
       border-radius: 4px;
       border: 1px solid oklch(100% 0 0 / 0.22);
-      transition: background 200ms var(--quart-out);
+      transition: background 220ms var(--quart-out), border-color 220ms var(--quart-out), transform 220ms var(--quart-out), box-shadow 220ms var(--quart-out);
     }
-    .check-item:hover { background: oklch(0% 0 0 / 0.22); }
+    .check-item:hover {
+      background: oklch(0% 0 0 / 0.22);
+      border-color: oklch(100% 0 0 / 0.55);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px oklch(0% 0 0 / 0.18);
+    }
     .check-item svg { width: 22px; height: 22px; flex-shrink: 0; margin-top: 2px; color: var(--blanco); }
     .check-item span {
       font-family: 'Barlow', sans-serif;
